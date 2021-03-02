@@ -2,9 +2,9 @@
   <!-- v-app must be the root element  -->
   <v-app>
     <Navbar />
-    <v-main class="grey lighten-3 px-4 pb-4">
+    <v-content class="grey lighten-3 px-4 pb-4">
       <router-view></router-view>
-    </v-main>
+    </v-content>
   </v-app>
 </template>
 

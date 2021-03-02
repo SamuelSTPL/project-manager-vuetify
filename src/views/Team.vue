@@ -1,19 +1,34 @@
 <template>
   <div class="team">
-    <v-subheader class="text--grey">Team</v-subheader>
-
     <v-container class="my-5">
       <v-row>
         <v-col
           cols="12"
           sm="6"
           md="4"
-          lg="6"
+          lg="3"
           v-for="person in team"
           :key="person.name"
         >
-          <v-card flat class="text-center">
-            hello
+          <v-card flat class="text-center ma-3">
+            <v-row>
+              <v-col class="mt-5 text-center">
+                <!-- Use the v-avatar tag to add avatar. Nest a img tag inside -->
+                <v-avatar size="80" class="grey lighten-2">
+                  <img :src="person.avatar" />
+                </v-avatar>
+              </v-col>
+            </v-row>
+            <v-card-text>
+              <div class="text-subtitle-1">{{ person.name }}</div>
+              <div class="grey--text">{{ person.role }}</div>
+            </v-card-text>
+            <v-card-action>
+              <v-btn depressed class="grey--text mb-1">
+                <v-icon small left>mdi-message</v-icon>
+                <span>Message</span>
+              </v-btn>
+            </v-card-action>
           </v-card>
         </v-col>
       </v-row>
@@ -28,11 +43,23 @@ export default {
   data() {
     return {
       team: [
-        { name: "Anakin Sky-Vaper", role: "Web developer" },
-        { name: "Obiwan 'Hello-There!' Kenobi", role: "Graphic Designer" },
-        { name: "YO-da", role: "Web developer" },
-        { name: "Ya Boy Vader", role: "Social media expert" },
-        { name: "Qui-is-Gone", role: "Sales Guru" }
+        {
+          name: "Anakin Sky-Vaper",
+          role: "Web developer",
+          avatar: "/avatar.png"
+        },
+        {
+          name: "Obiwan 'Hello-There!' Kenobi",
+          role: "Graphic Designer",
+          avatar: "/avatar.png"
+        },
+        { name: "YO-da", role: "Web developer", avatar: "/avatar.png" },
+        {
+          name: "Ya Boy Vader",
+          role: "Social media expert",
+          avatar: "/avatar.png"
+        },
+        { name: "Qui-is-Gone", role: "Sales Guru", avatar: "/avatar.png" }
       ]
     };
   }

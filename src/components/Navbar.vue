@@ -23,6 +23,14 @@
 
     <!-- Left menu Navigation  -->
     <v-navigation-drawer v-model="drawer" app class="primary">
+      <v-row>
+        <v-col class="text-center mt-10">
+          <v-avatar size="100">
+            <img src="/avatar.png" />
+          </v-avatar>
+          <p class="white--text text-subtitle-1 mt-1">Sam STPL</p>
+        </v-col>
+      </v-row>
       <v-list class="d-flex flex-column ml-5">
         <v-list-item
           v-for="link in links"
