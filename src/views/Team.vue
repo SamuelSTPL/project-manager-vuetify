@@ -23,12 +23,12 @@
               <div class="text-subtitle-1">{{ person.name }}</div>
               <div class="grey--text">{{ person.role }}</div>
             </v-card-text>
-            <v-card-action>
+            <v-card-actions>
               <v-btn depressed class="grey--text mb-1">
                 <v-icon small left>mdi-message</v-icon>
                 <span>Message</span>
               </v-btn>
-            </v-card-action>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
