@@ -1,6 +1,10 @@
 <template>
   <div class="projects">
-    <h1>Projects</h1>
+    <v-subheader class="text--grey">Projects</v-subheader>
+
+    <v-container class="my-5">
+      content
+    </v-container>
   </div>
 </template>
 
