@@ -10,11 +10,32 @@
         <span class="font-weight-light">Todo</span>
         <span>Sam</span>
       </v-app-bar-title>
+      <!-- Split to fill up the space from both component  -->
+      <v-spacer></v-spacer>
 
-      <v-spacer>
-        <!-- Split to fill up the space from both component  -->
-      </v-spacer>
+      <!-- Dropdown Menu  -->
+      <!-- Use offset y to make sure the menu dosent hide the dropdown button  -->
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn text v-bind="attrs" v-on="on" color="grey">
+            <v-icon left>mdi-chevron-down</v-icon>
+            <span>Menu</span>
+          </v-btn>
+        </template>
+        <!-- Add the v-list underneath the template element -->
+        <v-list class="px-2">
+          <v-list-item
+            v-for="(link, index) in links"
+            :key="index"
+            router
+            :to="link.route"
+          >
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
+      <!-- Sign Out button  -->
       <v-btn text color="grey">
         <span>Sign Out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
