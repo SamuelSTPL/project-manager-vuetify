@@ -23,52 +23,12 @@
 </template>
 
 <script>
+import db from "@/fb";
 export default {
   name: "Projects",
   data() {
     return {
-      projects: [
-        {
-          title: "Design a new website",
-          person: "Anakin Sky-Vaper",
-          due: "1st Jan 5010",
-          status: "ongoing",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!"
-        },
-        {
-          title: "Code up the homepage",
-          person: 'Obiwan "Hello-There!" Kenobi',
-          due: "10th Jan 5010",
-          status: "complete",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!"
-        },
-        {
-          title: "Design video thumbnails",
-          person: "YO-da",
-          due: "20th Dec 2010",
-          status: "complete",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!"
-        },
-        {
-          title: "Create a community forum",
-          person: "Ya Boy Vader",
-          due: "20th Oct 2010",
-          status: "overdue",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!"
-        },
-        {
-          title: "Design another website",
-          person: "Anakin Sky-Vaper",
-          due: "1st Jan 5010",
-          status: "ongoing",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!"
-        }
-      ]
+      projects: []
     };
   },
   computed: {
@@ -77,6 +37,22 @@ export default {
         return project.person === "Anakin Sky-Vaper";
       });
     }
+  },
+  // Created means something that will happen when the component mont
+  created() {
+    // Check for changes of documents inside the projects collection and update the data
+    db.collection("projects").onSnapshot((res) => {
+      const changes = res.docChanges();
+
+      changes.forEach((change) => {
+        if (change.type === "added") {
+          this.projects.push({
+            ...change.doc.data(),
+            id: change.doc.id
+          });
+        }
+      });
+    });
   }
 };
 </script>

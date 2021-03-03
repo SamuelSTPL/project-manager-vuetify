@@ -1,6 +1,12 @@
 <template>
   <nav>
-    <v-app-bar app flat>
+    <!-- Snackbar  -->
+    <v-snackbar v-model="snackbar" :timeout="4000" top color="success">
+      <span> Awsome! You added a new project </span>
+      <v-btn text class="text--white" @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
+
+    <v-app-bar app>
       <!-- The @Clicl Toggle the drawer menu -->
       <v-app-bar-nav-icon
         class="grey--text"
@@ -43,7 +49,7 @@
     </v-app-bar>
 
     <!-- Left menu Navigation  -->
-    <v-navigation-drawer v-model="drawer" app class="primary">
+    <v-navigation-drawer v-model="drawer" app class="primary" temporary>
       <!-- Top Part with the Avatar, Name, and Add new Project Popup button  -->
       <v-row>
         <v-col class="text-center mt-10">
@@ -52,7 +58,8 @@
           </v-avatar>
           <p class="white--text text-subtitle-1 mt-1">Sam STPL</p>
           <v-col class="mt-5 mb-3">
-            <Popup />
+            <!-- Will close snackbar with the emitted function on the Popup component  -->
+            <Popup @projectAdded="snackbar = true" />
           </v-col>
         </v-col>
       </v-row>
@@ -94,7 +101,8 @@ export default {
         { icon: "mdi-view-dashboard", text: "Dashboard", route: "/" },
         { icon: "mdi-folder", text: "My Projects", route: "/projects" },
         { icon: "mdi-account", text: "Team", route: "/team" }
-      ]
+      ],
+      snackbar: false
     };
   }
 };
