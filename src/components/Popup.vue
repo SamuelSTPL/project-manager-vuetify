@@ -1,6 +1,6 @@
 <template>
   <!-- Use v-dialog element to create the Popup  -->
-  <v-dialog max-width="600px">
+  <v-dialog max-width="600px" v-model="dialog">
     <template v-slot:activator="{ on }">
       <v-btn text class="success" v-on="on">Add new project</v-btn>
     </template>
@@ -40,7 +40,11 @@
             <v-date-picker v-model="due"></v-date-picker>
           </v-menu>
 
-          <v-btn depressed class="success mx-0 mt-3" @click="submit"
+          <v-btn
+            depressed
+            class="success mx-0 mt-3"
+            @click="submit"
+            :loading="loading"
             >Add Project</v-btn
           >
         </v-form>
@@ -52,6 +56,7 @@
 <script>
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
+import db from "../fb";
 
 export default {
   data() {
@@ -59,7 +64,9 @@ export default {
       title: "",
       content: "",
       due: null,
-      inputRules: [(v) => v.length >= 3 || "Minimum length is 3 characters"]
+      inputRules: [(v) => v.length >= 3 || "Minimum length is 3 characters"],
+      loading: false,
+      dialog: false
     };
   },
   methods: {
@@ -67,7 +74,24 @@ export default {
     // The .validate is a methods that check all fields
     submit() {
       if (this.$refs.form.validate()) {
-        console.log(this.title, this.content);
+        this.loading = true;
+
+        const project = {
+          title: this.title,
+          content: this.content,
+          due: format(parseISO(this.due), "do MMM yyyy"),
+          person: "Anakin Sky-Vaper",
+          status: "ongoing"
+        };
+        // Add the new object to firebase
+        db.collection("projects")
+          .add(project)
+          .then(() => {
+            this.loading = false;
+            this.dialog = false;
+            this.$emit("projectAdded");
+          })
+          .catch((err) => console.log(err));
       }
     }
   },
